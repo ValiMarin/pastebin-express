@@ -26,7 +26,7 @@ function displayText(text) {
   textsContainer.appendChild(div);
 }
 
-fetch("http://localhost:3000/pastes")
+fetch("http://localhost:3000/paste")
   .then((res) => res.json())
   .then((data) => data.forEach((text) => displayText(text.content)))
   .catch((err) => console.error(err));
@@ -38,7 +38,7 @@ addText.addEventListener("click", () => {
 
   if (!text) return;
 
-  fetch("http://localhost:3000/pastes", {
+  fetch("http://localhost:3000/paste", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ content: text }),

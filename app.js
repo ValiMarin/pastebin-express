@@ -4,7 +4,7 @@ const cors = require("cors");
 const logger = require("morgan");
 
 const indexRouter = require("./routes/index");
-const pastesRouter = require("./routes/pastes");
+const pastesRouter = require("./routes/paste");
 
 const app = express();
 
@@ -15,6 +15,6 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, "public")));
 
 app.use("/", indexRouter);
-app.use("/pastes", pastesRouter);
+app.use("/paste", pastesRouter);
 
 module.exports = app;
