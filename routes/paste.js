@@ -1,11 +1,11 @@
 const express = require("express");
 const router = express.Router();
-const client = require("../db");
+const db = require("../helpers/db");
 
 router.get("/", async (req, res) => {
   try {
-    const result = await client.query("SELECT content FROM texts");
-    res.json(result.rows);
+    const pastes = await db.getAllPastes();
+    res.json(pastes);
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
@@ -19,11 +19,8 @@ router.post("/", async (req, res) => {
   }
 
   try {
-    const result = await client.query(
-      "INSERT INTO texts (content) VALUES ($1) RETURNING *",
-      [content],
-    );
-    res.json(result.rows[0]);
+    const newPaste = await db.addPaste(content);
+    res.json(newPaste);
   } catch (err) {
     res.status(500).json({ error: err.message });
   }

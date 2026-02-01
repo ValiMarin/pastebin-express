@@ -10,4 +10,21 @@ const client = new Client({
 
 client.connect();
 
-module.exports = client;
+async function getAllPastes() {
+  const result = await client.query("SELECT content FROM texts");
+  return result.rows;
+}
+
+async function addPaste(content) {
+  const result = await client.query(
+    "INSERT INTO texts (content) VALUES ($1) RETURNING *",
+    [content],
+  );
+  return result.rows[0];
+}
+
+module.exports = {
+  client,
+  getAllPastes,
+  addPaste,
+};
