@@ -40,4 +40,23 @@ router.get("/:id", async (req, res) => {
   }
 });
 
+router.put("/:id", async (req, res) => {
+  const { id } = req.params;
+  const { content } = req.body;
+
+  if (!content)
+    return res.status(400).json({ error: "Content cannot be empty!" });
+
+  try {
+    const updatedPaste = await db.updatePaste(id, content);
+
+    if (!updatedPaste)
+      return res.status(404).json({ error: "Paste not found" });
+
+    res.json(updatedPaste);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
 module.exports = router;

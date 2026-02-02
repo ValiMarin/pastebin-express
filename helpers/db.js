@@ -31,9 +31,15 @@ async function updatePaste(id, content) {
   return result.rows[0];
 }
 
+async function getPasteById(id) {
+  const result = await client.query("SELECT * FROM texts WHERE id = $1", [id]);
+  return result.rows[0];
+}
+
 module.exports = {
   client,
   getAllPastes,
   addPaste,
   updatePaste,
+  getPasteById,
 };
