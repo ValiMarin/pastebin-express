@@ -23,8 +23,17 @@ async function addPaste(content) {
   return result.rows[0];
 }
 
+async function updatePaste(id, content) {
+  const result = await client.query(
+    "UPDATE texts SET content = $1 WHERE id = $2 RETURNING *",
+    [content, id],
+  );
+  return result.rows[0];
+}
+
 module.exports = {
   client,
   getAllPastes,
   addPaste,
+  updatePaste,
 };
