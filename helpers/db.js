@@ -11,7 +11,7 @@ const client = new Client({
 client.connect();
 
 async function getAllPastes() {
-  const result = await client.query("SELECT content FROM texts");
+  const result = await client.query("SELECT id, content FROM texts");
   return result.rows;
 }
 
